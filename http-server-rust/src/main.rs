@@ -3,6 +3,9 @@ use std::{
     net::{TcpListener, TcpStream},
 };
 
+mod connection;
+use connection::{Request, Response};
+
 const SERVER_ADDR: &str = "127.0.0.1";
 const PORT: &str = "4221";
 
@@ -13,7 +16,11 @@ fn main() {
     for stream in listener.incoming() {
         match stream {
             Ok(mut stream) => {
+                println!("Accepted new connection");
+
                 handle_connection(&mut stream);
+
+                stream.write("HTTP/1.1 200 OK\r\n".as_bytes()).unwrap();
             }
             Err(error) => {
                 eprintln!("Failed to listen to incoming stream. Error: {error}");
@@ -23,5 +30,5 @@ fn main() {
 }
 
 fn handle_connection(stream: &mut TcpStream) {
-    stream.write("HTTP/1.1 200 OK\r\n".as_bytes()).unwrap();
+    let request = Request::new(stream);
 }

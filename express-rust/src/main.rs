@@ -1,3 +1,13 @@
+mod app;
+
+use app::App;
+
+mod utils {
+    pub mod server;
+}
+
 fn main() {
-    println!("Hello, world!");
+    let app = App::new();
+
+    app.listen(5000);
 }

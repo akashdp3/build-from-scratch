@@ -1,0 +1,17 @@
+@document.meta
+Express App Clone using `rust`
+@end
+
+* Introduction
+
+  Disclaimer: This is an attempt to develop an express like package in rust. This is purely for *learning* purpose, not recomemnded to be used in production.
+
+** Features
+
+   ~ Robust routing
+   ~ Focus on high performance
+   ~ Super-high test coverage
+   ~ HTTP helpers (redirection, caching, etc)
+   ~ View system supporting 14+ template engines
+   ~ Content negotiation
+   ~ Executable for generating applications quickly

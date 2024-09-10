@@ -1,0 +1,55 @@
+* TODO
+
+** ( ) HTTP Server
+
+   ~ (-) *Request and Response Handling*: The pacakge must be able to handle incoming HTTP requests and send responses, similar to Express's `req` and `res` objects.
+   ~ ( ) *Support for HTTP Methods*: The server should support atleast following HTTP methods.
+   -- ( ) *GET*
+   -- ( ) *POST*
+   -- ( ) *PUT*
+   -- ( ) *DELETE*
+   -- ( ) *PATCH*
+   -- ( ) *OPTIONS*
+   -- ( ) *HEAD*
+   ~ ( ) *Routing*
+   -- ( ) Dynamic Routing: Routes should support dynamic parameters (eg. `/users/:id`)
+   -- ( ) Route Handlers: Ability to register route handlers for specific HTTP methods (e.g. `app.get('/users', handler)`)
+   -- ( ) Route Grouping: Support grouping routes (e.g. `/api/v1`) and applying middleware to specific route groups.
+
+** ( ) Middleware Support
+
+   ~ ( ) *Chaining*: Support middleware chaining, allowing multiple middleware functiosn to be applied sequentially to requests
+   ~ ( ) *Custom Middleware*: Allow users to define custom middleware functions to process requests and responses.
+   ~ ( ) *Built-in Middleware*:
+   -- ( ) Body Parsers (eg. JSON, URL-encoded)
+   -- ( ) Logging
+   -- ( ) CORS
+   -- ( ) Static file serving
+
+** ( ) Request Handling
+
+   ~ ( ) *Request Parsing*: Parse incoming request bodies and query parameters. The package should support:
+   -- ( ) JSON body Parsing
+   -- ( ) Form data Parsing
+   -- ( ) URL-encoded data
+   -- ( ) Multipart from-data
+   ~ ( ) *Query String Parsing*: Ability to parse query strings (e.g. `/search?q=rust`)
+   ~ ( ) *Request Metadata*:
+   -- ( ) Headers: Parse and provide access to request Headers
+   -- ( ) Cookies: Support readig cookies from incoming requests
+   -- ( ) Session Management: Optional support for session Handling
+
+** ( ) Response Handling
+
+   ~ ( ) Response Struct: Provide a flexible `Response` struct that allows it
+   -- ( ) Setting status codes (e.g. `res.status(200)`)
+   -- ( ) Sending JSON or plain text responses (`res.json`, `res.send`)
+   -- ( ) Setting headers (e.g. `res.setHeader('Content-Type', 'application/json')`)
+   -- ( ) Redirection: Support for HTTP redirects (e.g. `res.redirect('/login')`).
+   -- ( ) Streaming: Allow streaming of large response bodies (e.g. files)
+
+** ( ) Error Handling
+
+   ~ ( ) *Custom Error Pages*: Provide customization error pages for common HTTP errors like `404 Not Found` and `500 Internal Server Error`.
+   ~ ( ) *Error Middleware*: Ability to define error-handling middleware to catch and response to errors in the request lifecycle.
+   ~ ( ) *Graceful Error Handling*: Ensure proper error handling for unhandled exceptions in routes and middlewares, responding with a structured error message.

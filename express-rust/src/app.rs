@@ -8,8 +8,6 @@ impl App {
    }
 
    pub fn listen(&self, port: u16) {
-       let server_address = format!("localhost:{port}");
-
-       start_server(server_address);
+       start_server(port);
    }
 }

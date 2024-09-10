@@ -1,7 +1,8 @@
+use core::panic;
 use std::net::TcpListener;
 
-pub fn start_server(server_address: String) {
-    let listener = TcpListener::bind(server_address).unwrap();
+pub fn start_server(port: u16) {
+    let listener = create_listener(port);
 
     for stream in listener.incoming() {
         match stream {
@@ -16,3 +17,18 @@ pub fn start_server(server_address: String) {
     
 }
 
+fn create_listener(port: u16) -> TcpListener {
+    let server_address = format!("localhost:{port}");
+
+
+    match TcpListener::bind(server_address) {
+        Ok(listener) => {
+            println!("Listening on port {port}");
+            listener
+        },
+        Err(error) => {
+            eprintln!("Error occured while trying to listen on {port}. Error: {error}");
+            panic!("Could not start server on {port}");
+        }
+    }
+}

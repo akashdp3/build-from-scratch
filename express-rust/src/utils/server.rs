@@ -1,13 +1,21 @@
 use core::panic;
-use std::net::TcpListener;
+use std::{
+    io::Error,
+    net::{TcpListener, TcpStream},
+};
 
-pub fn start_server(port: u16) {
+pub fn start_server<F>(port: u16, mut handler: F)
+where
+    F: FnMut(&mut TcpStream) -> Result<(), Error>,
+{
     let listener = create_listener(port);
 
     for stream in listener.incoming() {
         match stream {
-            Ok(_) => {
-                println!("Accpected new connection");
+            Ok(mut stream) => {
+                if let Err(error) = handler(&mut stream) {
+                    eprintln!("Error handling connection: {}", error);
+                }
             }
             Err(error) => {
                 eprintln!("Error on receiving request. Error: {error}");

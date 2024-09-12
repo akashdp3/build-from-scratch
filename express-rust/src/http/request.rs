@@ -1,3 +1,15 @@
-pub struct Request {}
+use std::net::TcpStream;
 
-impl Request {}
+use crate::http::Method;
+
+pub struct Request {
+    method: Method,
+}
+
+impl Request {
+    // pub fn new(stream: TcpStream) -> Self {
+    //     Request {
+    //         method:
+    //     }
+    // }
+}

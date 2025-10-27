@@ -6,9 +6,13 @@ Building projects from scratch with minimal usage of third party packages.
 
 ## Projects
 
+### Go Projects
+
+- [ ] DNS Server from scratch
+
 ### Rust Projects
 
-- [ ] Express.js from scratch
+- [ ] Bloom filter for checking username
 
 ## Codecrafter Projects
 

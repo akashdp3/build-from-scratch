@@ -1,14 +1,9 @@
-use clap::Parser;
+mod commands;
+mod config;
 
-#[derive(Parser, Debug)]
-#[command(version, about, long_about=None)]
-struct Args {
-    #[arg(short, long)]
-    command: String,
-}
+use crate::config::cli::Cli;
 
 fn main() {
-    let args = Args::parse();
-
-    println!("Command: {}", args.command);
+    let cli = Cli::run();
+    cli.execute();
 }

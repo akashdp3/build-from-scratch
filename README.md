@@ -9,7 +9,7 @@ Building projects from scratch with minimal usage of third party packages.
 ### Rust Projects
 
 - [x] Bloom filter for checking username
-- [ ] CLI TO-DO List App
+- [x] CLI TO-DO List App
 - [ ] Web scrapper for e-commerce
 - [ ] File compression
 - [ ] Real time chat room

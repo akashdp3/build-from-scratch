@@ -2,14 +2,14 @@ use clap::Subcommand;
 
 pub mod export;
 pub mod import;
-pub mod task;
+pub mod todo;
 
-pub use task::Todo;
+pub use todo::Todo;
 
 #[derive(Subcommand, Debug)]
 pub enum Command {
-    ADD { title: String },
-    LIST,
-    DONE { task_id: u8 },
-    DELETE { task_id: u8 },
+    Add { title: String },
+    List,
+    Done { task_id: u8 },
+    Delete { task_id: u8 },
 }

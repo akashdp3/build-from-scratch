@@ -1,6 +1,10 @@
+use serde::{Deserialize, Serialize};
+use serde_json;
 use std::fmt;
 
-#[derive(Debug)]
+use crate::config::file;
+
+#[derive(Debug, Serialize, Deserialize)]
 enum Status {
     Pending,
     InProgress,
@@ -21,7 +25,7 @@ impl fmt::Display for Status {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 struct Task {
     id: u8,
     title: String,
@@ -38,14 +42,62 @@ impl Task {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Todo {
     tasks: Vec<Task>,
 }
 
+pub trait TodoService {
+    fn add(&mut self, title: &str) -> Result<(), &str>;
+    fn list(&self) -> Result<Vec<String>, &str>;
+    fn change_status(&mut self, task_id: u8, task_status: &str) -> Result<(), &str>;
+    fn delete(&mut self, task_id: u8) -> Result<(), &str>;
+}
+
+impl TodoService for Todo {
+    fn add(&mut self, title: &str) -> Result<(), &str> {
+        Todo::add(self, title)
+    }
+
+    fn list(&self) -> Result<Vec<String>, &str> {
+        Todo::list(self)
+    }
+
+    fn change_status(&mut self, task_id: u8, task_status: &str) -> Result<(), &str> {
+        Todo::change_status(self, task_id, task_status)
+    }
+
+    fn delete(&mut self, task_id: u8) -> Result<(), &str> {
+        Todo::delete(self, task_id)
+    }
+}
+
+impl Drop for Todo {
+    fn drop(&mut self) {
+        if let Err(e) = file::save(self) {
+            println!("Error: {}", e);
+        }
+    }
+}
+
 impl Todo {
     pub fn new() -> Self {
-        Self { tasks: vec![] }
+        Self::load()
+    }
+
+    fn load() -> Self {
+        match file::load() {
+            Ok(content) if !content.trim().is_empty() => {
+                match serde_json::from_str::<Todo>(&content) {
+                    Ok(todo) => todo,
+                    Err(e) => {
+                        eprintln!("Failed to parse persisted tasks: {}", e);
+                        Self { tasks: vec![] }
+                    }
+                }
+            }
+            _ => Self { tasks: vec![] },
+        }
     }
 
     pub fn add(&mut self, title: &str) -> Result<(), &str> {

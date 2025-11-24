@@ -4,14 +4,14 @@ import { useRoute } from 'vue-router';
 
 const route = useRoute();
 
-const fetchOriginalUrl = () => {
+const redirectToOriginal = () => {
     const shortCode = route.params.shortCode;
-
-    const response 
+    window.location.replace(`http://localhost:8000/url?key=${encodeURIComponent(shortCode)}`);
 }
 
+onMounted(redirectToOriginal);
 </script>
 
 <template> 
-    <div>URL Redirect Component</div>
+    <div>Redirecting...</div>
 </template>

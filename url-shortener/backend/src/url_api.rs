@@ -1,5 +1,8 @@
 use axum::http::StatusCode;
-use axum::{extract::State, response::Json};
+use axum::{
+    extract::{Query, State},
+    response::Json,
+};
 use std::sync::{Arc, Mutex};
 
 use crate::api_response::{
@@ -22,7 +25,7 @@ pub async fn create_short_url(
 
 pub async fn get_short_url(
     State(urls): State<Arc<Mutex<UrlService>>>,
-    Json(payload): Json<GetShortURLApiRequest>,
+    Query(payload): Query<GetShortURLApiRequest>,
 ) -> Result<ApiSuccess, ApiError> {
     let urls = urls.lock().expect("UrlService lock failed");
     let short_url = match urls.get_short_url(&payload.key) {
@@ -45,9 +48,12 @@ pub async fn get_short_url(
     Ok(ApiSuccess {
         status_code: StatusCode::PERMANENT_REDIRECT,
         data,
-        headers: vec![(
-            "Cache-Control".to_string(),
-            "public, max-age=31536000".to_string(),
-        )],
+        headers: vec![
+            ("Location".to_string(), short_url.original_url.clone()),
+            (
+                "Cache-Control".to_string(),
+                "public, max-age=31536000".to_string(),
+            ),
+        ],
     })
 }

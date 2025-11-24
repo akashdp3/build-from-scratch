@@ -32,10 +32,10 @@ async fn main() {
         .layer(cors)
         .with_state(urls);
 
-    let listrner = tokio::net::TcpListener::bind("0.0.0.0:8000")
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:8000")
         .await
         .expect("Failed to start listener on port 8000");
-    axum::serve(listrner, app).await.unwrap();
+    axum::serve(listener, app).await.unwrap();
 }
 
 async fn health_check() -> Json<Value> {

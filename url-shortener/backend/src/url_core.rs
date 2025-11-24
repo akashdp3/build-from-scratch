@@ -25,17 +25,19 @@ impl UrlService {
     }
 
     pub fn create_short_url(&mut self, original_url: String) -> ShortUrl {
+        if self.urls.contains_key(&original_url) {
+            return self.urls.get(&original_url).unwrap().clone();
+        }
+
         let hashed_code = Self::get_hashed_code(&original_url);
-        let cloned_hashed_code = hashed_code.clone();
 
         let short_url = ShortUrl {
-            key: hashed_code,
+            key: hashed_code.clone(),
             original_url,
             created_at: chrono::Utc::now(),
         };
-        let cloned_short_url = short_url.clone();
 
-        self.urls.insert(cloned_hashed_code, cloned_short_url);
+        self.urls.insert(hashed_code, short_url.clone());
         short_url
     }
 

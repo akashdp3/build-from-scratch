@@ -5,7 +5,6 @@ use std::hash::{DefaultHasher, Hash, Hasher};
 pub struct ShortUrl {
     pub key: String,
     pub original_url: String,
-    created_at: chrono::DateTime<chrono::Utc>,
 }
 
 #[derive(Debug, Clone)]
@@ -34,7 +33,6 @@ impl UrlService {
         let short_url = ShortUrl {
             key: hashed_code.clone(),
             original_url,
-            created_at: chrono::Utc::now(),
         };
 
         self.urls.insert(hashed_code, short_url.clone());

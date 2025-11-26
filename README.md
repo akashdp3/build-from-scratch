@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Building projects from scratch with minimal usage of third party packages.
+Building projects from scratch.
 
 ## Projects
 
@@ -10,6 +10,7 @@ Building projects from scratch with minimal usage of third party packages.
 
 - [x] Bloom filter for checking username
 - [x] CLI TO-DO List App
+- [x] [URL Shortener](https://github.com/akashdp3/build-from-scratch/tree/main/url-shortener)
 - [ ] Web scrapper for e-commerce
 - [ ] File compression
 - [ ] Real time chat room
@@ -26,6 +27,7 @@ Building projects from scratch with minimal usage of third party packages.
 - [ ] NES emulator
 
 #### Reference:
+
 - https://codecrafters.io/blog/rust-projects
 
 ### Codecrafter Projects
